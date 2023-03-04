@@ -5,7 +5,7 @@ import { useReducer, useEffect } from "react";
 // import { headInsert } from "./tools/headInsert";
 // becomes:  
 import { headInsert } from "keycloakify/lib/tools/headInsert";
-import { assert } from "keycloakify/lib/tools/assert";
+// import { assert } from "keycloakify/lib/tools/assert";
 import { clsx } from "keycloakify/lib/tools/clsx";
 import { pathJoin } from "keycloakify/bin/tools/pathJoin";
 import type { TemplateProps } from "keycloakify/lib/KcProps";
@@ -13,6 +13,7 @@ import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
 import "xp.css/dist/98.css";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
         displayInfo = false,
@@ -224,3 +225,4 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
         </div>
     );
 }
+/* eslint-enable @typescript-eslint/no-unused-vars */
