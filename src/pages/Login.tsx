@@ -11,6 +11,7 @@ import type { PageProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
 
+
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl"; }>, I18n>) {
 	const { kcContext, i18n, doFetchDefaultThemeResources = true, Template, ...kcProps } = props;
 
@@ -19,7 +20,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 	const { msg, msgStr } = i18n;
 
 	const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
-
+	
 	const onSubmit = useConstCallback<FormEventHandler<HTMLFormElement>>(e => {
 		e.preventDefault();
 
@@ -102,19 +103,19 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 								<div className={clsx(kcProps.kcFormGroupClass, kcProps.kcFormSettingClass)}>
 									<div id="kc-form-options">
 										{realm.rememberMe && !usernameEditDisabled && (
-											<div className="checkbox">
+											<div className="field-row">
+												<input
+													tabIndex={3}
+													id="rememberMe"
+													name="rememberMe"
+													type="checkbox"
+													{...(login.rememberMe
+														? {
+															"checked": true
+														}
+														: {})}
+												/>
 												<label>
-													<input
-														tabIndex={3}
-														id="rememberMe"
-														name="rememberMe"
-														type="checkbox"
-														{...(login.rememberMe
-															? {
-																"checked": true
-															}
-															: {})}
-													/>
 													{msg("rememberMe")}
 												</label>
 											</div>
@@ -130,7 +131,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 										)}
 									</div>
 								</div>
-								<div id="kc-form-buttons" className={clsx(kcProps.kcFormGroupClass)}>
+								<div id="kc-form-buttons" className="windows-button-container">
 									<input
 										type="hidden"
 										id="id-hidden-input"
@@ -141,20 +142,14 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 											}
 											: {})}
 									/>
-									<input
-										tabIndex={4}
-										className={clsx(
-											kcProps.kcButtonClass,
-											kcProps.kcButtonPrimaryClass,
-											kcProps.kcButtonBlockClass,
-											kcProps.kcButtonLargeClass
-										)}
+									<button
 										name="login"
 										id="kc-login"
 										type="submit"
-										value={msgStr("doLogIn")}
 										disabled={isLoginButtonDisabled}
-									/>
+									>
+									{msgStr("doLogIn")}
+									</button>
 								</div>
 							</form>
 						)}

@@ -20,9 +20,9 @@ const kcProps: KcProps = {
     ...defaultKcProps,
     // NOTE: The classes are defined in ./KcApp.css
     // You can add your classes alongside thoses that are present in the default Keycloak theme...
-    "kcHtmlClass": [...defaultKcProps.kcHtmlClass, "my-root-class"],
+    "kcHtmlClass": [...defaultKcProps.kcHtmlClass, "webcore-root"],
     // ...or overwrite  
-    "kcHeaderWrapperClass": "my-color my-font"
+    "kcHeaderWrapperClass": "webcore-header"
 };
 
 export default function App(props: { kcContext: KcContext; }) {

@@ -11,6 +11,7 @@ import { pathJoin } from "keycloakify/bin/tools/pathJoin";
 import type { TemplateProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
+import "xp.css/dist/98.css";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -64,7 +65,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
             }
 
             setExtraCssLoaded();
-        });
+    });
 
         toArr(props.scripts).forEach(relativePath =>
             headInsert({
@@ -102,30 +103,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 </div>
             </div>
 
-            <div className={clsx(props.kcFormCardClass, displayWide && props.kcFormCardAccountClass)}>
-                <header className={clsx(props.kcFormHeaderClass)}>
-                    {realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1 && (
-                        <div id="kc-locale">
-                            <div id="kc-locale-wrapper" className={clsx(props.kcLocaleWrapperClass)}>
-                                <div className="kc-dropdown" id="kc-locale-dropdown">
-                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a href="#" id="kc-current-locale-link">
-                                        {labelBySupportedLanguageTag[currentLanguageTag]}
-                                    </a>
-                                    <ul>
-                                        {locale.supported.map(({ languageTag }) => (
-                                            <li key={languageTag} className="kc-dropdown-item">
-                                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                                <a href="#" onClick={() => changeLocale(languageTag)}>
-                                                    {labelBySupportedLanguageTag[languageTag]}
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+            <div className={clsx(props.kcFormCardClass, displayWide && props.kcFormCardAccountClass, "window", "kc-windows-window")}>
+                <div className="title-bar">
                     {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
                         displayRequiredFields ? (
                             <div className={clsx(props.kcContentWrapperClass)}>
@@ -135,12 +114,24 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                         {msg("requiredFields")}
                                     </span>
                                 </div>
-                                <div className="col-md-10">
-                                    <h1 id="kc-page-title">{headerNode}</h1>
+                                <div className="">
+                                    <div id="kc-page-title" className="title-bar-text">{headerNode}</div>
+                                    <div className="title-bar-controls">
+                                        <button aria-label="Minimize"></button>
+                                        <button aria-label="Maximize"></button>
+                                        <button aria-label="Close"></button>
+                                    </div>
                                 </div>
                             </div>
                         ) : (
-                            <h1 id="kc-page-title">{headerNode}</h1>
+                            <>
+                                <div id="kc-page-title" className="title-bar-text">{headerNode}</div>
+                                <div className="title-bar-controls">
+                                    <button aria-label="Minimize"></button>
+                                    <button aria-label="Maximize"></button>
+                                    <button aria-label="Close"></button>
+                                </div>
+                            </>
                         )
                     ) : displayRequiredFields ? (
                         <div className={clsx(props.kcContentWrapperClass)}>
@@ -180,8 +171,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                             </div>
                         </>
                     )}
-                </header>
-                <div id="kc-content">
+                </div>
+                <div id="kc-content" className="window-body kc-windows-body">
                     <div id="kc-content-wrapper">
                         {/* App-initiated actions should not see warning messages about the need to complete the action during login. */}
                         {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
